@@ -23,22 +23,22 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setupLabels()
-        
+        colorView.layer.cornerRadius = 15
     }
     
     @IBAction func chooseRed() {
         redLabel.text = String(format: "%.2f", redSlider.value)
-        setColor()
+        setRGBColor()
     }
     
     @IBAction func chooseGreen() {
         greenLabel.text = String(format: "%.2f", greenSlider.value)
-        setColor()
+        setRGBColor()
     }
     
     @IBAction func chooseBlue() {
         blueLabel.text = String(format: "%.2f", blueSlider.value)
-        setColor()
+        setRGBColor()
     }
     
     private func setupLabels() {
@@ -47,13 +47,12 @@ class ViewController: UIViewController {
         blueLabel.text = String(blueSlider.value)
     }
     
-    private func setColor() {
+    private func setRGBColor() {
         colorView.backgroundColor = UIColor(
             red: CGFloat(redSlider.value),
             green: CGFloat(greenSlider.value),
             blue: CGFloat(blueSlider.value),
             alpha: 1)
     }
-
 }
 
