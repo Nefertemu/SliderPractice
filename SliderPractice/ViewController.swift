@@ -11,9 +11,9 @@ class ViewController: UIViewController {
     
     @IBOutlet var colorView: UIView!
     
-    @IBOutlet var redLabel: UILabel!
-    @IBOutlet var greenLabel: UILabel!
-    @IBOutlet var blueLabel: UILabel!
+    @IBOutlet var redValueLabel: UILabel!
+    @IBOutlet var greenValueLabel: UILabel!
+    @IBOutlet var blueValueLabel: UILabel!
     
     @IBOutlet var redSlider: UISlider!
     @IBOutlet var greenSlider: UISlider!
@@ -27,24 +27,24 @@ class ViewController: UIViewController {
     }
     
     @IBAction func chooseRed() {
-        redLabel.text = String(format: "%.2f", redSlider.value)
+        redValueLabel.text = String(format: "%.2f", redSlider.value)
         setRGBColor()
     }
     
     @IBAction func chooseGreen() {
-        greenLabel.text = String(format: "%.2f", greenSlider.value)
+        greenValueLabel.text = String(format: "%.2f", greenSlider.value)
         setRGBColor()
     }
     
     @IBAction func chooseBlue() {
-        blueLabel.text = String(format: "%.2f", blueSlider.value)
+        blueValueLabel.text = String(format: "%.2f", blueSlider.value)
         setRGBColor()
     }
     
     private func setupLabels() {
-        redLabel.text = String(redSlider.value)
-        greenLabel.text = String(greenSlider.value)
-        blueLabel.text = String(blueSlider.value)
+        redValueLabel.text = String(redSlider.value)
+        greenValueLabel.text = String(greenSlider.value)
+        blueValueLabel.text = String(blueSlider.value)
     }
     
     private func setRGBColor() {
