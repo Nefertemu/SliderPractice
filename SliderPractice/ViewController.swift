@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    //MARK: - IBOutlet
     @IBOutlet var colorView: UIView!
     
     @IBOutlet var redValueLabel: UILabel!
@@ -19,6 +20,7 @@ class ViewController: UIViewController {
     @IBOutlet var greenSlider: UISlider!
     @IBOutlet var blueSlider: UISlider!
     
+    //MARK: - LifeCycle View
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,6 +28,7 @@ class ViewController: UIViewController {
         colorView.layer.cornerRadius = 15
     }
     
+    //MARK: - IBAction
     @IBAction func chooseRed() {
         redValueLabel.text = String(format: "%.2f", redSlider.value)
         setRGBColor()
@@ -41,6 +44,7 @@ class ViewController: UIViewController {
         setRGBColor()
     }
     
+    //MARK: - Private methods
     private func setupLabels() {
         redValueLabel.text = String(redSlider.value)
         greenValueLabel.text = String(greenSlider.value)
