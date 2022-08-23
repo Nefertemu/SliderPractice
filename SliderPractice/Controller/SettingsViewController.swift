@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class SettingsViewController: UIViewController {
     
     //MARK: - IBOutlet
     @IBOutlet var colorView: UIView!
@@ -25,30 +25,26 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setupLabels()
+        setRGBColor()
         colorView.layer.cornerRadius = 15
     }
     
     //MARK: - IBAction
-    @IBAction func chooseRed() {
-        redValueLabel.text = String(format: "%.2f", redSlider.value)
+    @IBAction func sliderRGB(_ sender: UISlider) {
         setRGBColor()
+        setupLabels()
     }
     
-    @IBAction func chooseGreen() {
-        greenValueLabel.text = String(format: "%.2f", greenSlider.value)
-        setRGBColor()
+    @IBAction func doneButtonPressed() {
+        dismiss(animated: true)
     }
     
-    @IBAction func chooseBlue() {
-        blueValueLabel.text = String(format: "%.2f", blueSlider.value)
-        setRGBColor()
-    }
     
     //MARK: - Private methods
     private func setupLabels() {
-        redValueLabel.text = String(redSlider.value)
-        greenValueLabel.text = String(greenSlider.value)
-        blueValueLabel.text = String(blueSlider.value)
+        redValueLabel.text = String(format: "%.2f", redSlider.value)
+        greenValueLabel.text = String(format: "%.2f",greenSlider.value)
+        blueValueLabel.text = String(format: "%.2f",blueSlider.value)
     }
     
     private func setRGBColor() {
