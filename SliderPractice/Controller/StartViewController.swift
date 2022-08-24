@@ -29,6 +29,8 @@ final class StartViewController: UIViewController {
         settingsVC.redValue = redValue
         settingsVC.greenValue = greenValue
         settingsVC.blueValue = blueValue
+        
+         
     }
     
     private func setBackgroundColor() {
