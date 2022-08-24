@@ -14,7 +14,7 @@ final class SettingsViewController: UIViewController, UITextFieldDelegate {
     var blueValue: CGFloat = 1
     
     var delegate: SettingsViewControllerDelegate!
-
+    
     //MARK: - IBOutlets
     
     @IBOutlet var colorView: UIView!
@@ -26,7 +26,7 @@ final class SettingsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var redSlider: UISlider!
     @IBOutlet var greenSlider: UISlider!
     @IBOutlet var blueSlider: UISlider!
-        
+    
     @IBOutlet var redValueTF: UITextField!
     @IBOutlet var greenValueTF: UITextField!
     @IBOutlet var blueValueTF: UITextField!
@@ -47,7 +47,7 @@ final class SettingsViewController: UIViewController, UITextFieldDelegate {
         redValueTF.addDoneButtonOnKeyboard()
         greenValueTF.addDoneButtonOnKeyboard()
         blueValueTF.addDoneButtonOnKeyboard()
-                
+        
         super.viewWillAppear(animated)
     }
     
@@ -108,7 +108,29 @@ final class SettingsViewController: UIViewController, UITextFieldDelegate {
         blueSlider.value = Float(blueValueTF.text ?? "") ?? 0
     }
     
+    private func showRangeAlert() {
+        let alert = UIAlertController(title: "Wrong format!", message: "Please make sure you have entered numbers", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
+    }
+    
+    //MARK: - Internal methods
+    
     internal func textFieldDidEndEditing(_ textField: UITextField) {
+        let textToFloat = Float(textField.text ?? "") ?? 0
+        
+        guard String(textField.text!).isNumeric else {
+            showRangeAlert()
+            textField.text = ""
+            return
+        }
+        
+        if textToFloat > 1 {
+            textField.text = String(1.00)
+        } else if textToFloat < 0 {
+            textField.text = String(0.00)
+        }
+        
         updateSlidersFromTF()
         setRGBColor()
     }
@@ -121,17 +143,26 @@ final class SettingsViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-extension UITextField {
 
-   func addDoneButtonOnKeyboard() {
-       let keyboardToolbar = UIToolbar()
-       keyboardToolbar.sizeToFit()
-       let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
-           target: nil, action: nil)
-       let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
-           target: self, action: #selector(resignFirstResponder))
-       keyboardToolbar.items = [flexibleSpace, doneButton]
-       keyboardToolbar.backgroundColor = .white
-       self.inputAccessoryView = keyboardToolbar
-   }
+//MARK: - Extensions
+
+extension String {
+    var isNumeric: Bool {
+        return !(self.isEmpty) && self.allSatisfy { $0.isNumber }
+    }
+}
+
+extension UITextField {
+    
+    func addDoneButtonOnKeyboard() {
+        let keyboardToolbar = UIToolbar()
+        keyboardToolbar.sizeToFit()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                                            target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
+                                         target: self, action: #selector(resignFirstResponder))
+        keyboardToolbar.items = [flexibleSpace, doneButton]
+        keyboardToolbar.backgroundColor = .white
+        self.inputAccessoryView = keyboardToolbar
+    }
 }
