@@ -19,18 +19,16 @@ final class StartViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         setBackgroundColor()
-        print(redValue, greenValue, blueValue)
         super.viewWillAppear(animated)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let settingsVC =  segue.destination as? SettingsViewController else { return }
+        
         settingsVC.delegate = self
         settingsVC.redValue = redValue
         settingsVC.greenValue = greenValue
         settingsVC.blueValue = blueValue
-        
-         
     }
     
     private func setBackgroundColor() {

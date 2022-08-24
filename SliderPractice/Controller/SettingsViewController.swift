@@ -9,6 +9,8 @@ import UIKit
 
 final class SettingsViewController: UIViewController, UITextFieldDelegate {
     
+    //MARK: - Public properties
+    
     var redValue: CGFloat = 1
     var greenValue: CGFloat = 1
     var blueValue: CGFloat = 1
@@ -39,15 +41,10 @@ final class SettingsViewController: UIViewController, UITextFieldDelegate {
         setRGBColor()
         setupLabels()
         setupTextFields()
-        
-        print(redValue, greenValue, blueValue)
-        
+        addDoneButtonsToKeyboard()
+                
         colorView.layer.cornerRadius = 15
-        
-        redValueTF.addDoneButtonOnKeyboard()
-        greenValueTF.addDoneButtonOnKeyboard()
-        blueValueTF.addDoneButtonOnKeyboard()
-        
+    
         super.viewWillAppear(animated)
     }
     
@@ -108,6 +105,12 @@ final class SettingsViewController: UIViewController, UITextFieldDelegate {
         blueSlider.value = Float(blueValueTF.text ?? "") ?? 0
     }
     
+    private func addDoneButtonsToKeyboard() {
+        redValueTF.addDoneButtonOnKeyboard()
+        greenValueTF.addDoneButtonOnKeyboard()
+        blueValueTF.addDoneButtonOnKeyboard()
+    }
+    
     private func showRangeAlert() {
         let alert = UIAlertController(title: "Wrong format!", message: "Please make sure you have entered numbers", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
@@ -148,8 +151,10 @@ final class SettingsViewController: UIViewController, UITextFieldDelegate {
 
 extension String {
     var isNumeric: Bool {
-        return !(self.isEmpty) && self.allSatisfy { $0.isNumber }
-    }
+            guard self.count > 0 else { return false }
+            let nums: Set<Character> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
+            return Set(self).isSubset(of: nums)
+        }
 }
 
 extension UITextField {
