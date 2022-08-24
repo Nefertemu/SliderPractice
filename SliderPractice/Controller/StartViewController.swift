@@ -7,23 +7,43 @@
 
 import UIKit
 
-class StartViewController: UIViewController {
+protocol SettingsViewControllerDelegate {
+    func setRGBValues(red: CGFloat, green: CGFloat, blue: CGFloat)
+}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+final class StartViewController: UIViewController {
+    
+    var redValue: CGFloat = 1
+    var greenValue: CGFloat = 1
+    var blueValue: CGFloat = 1
 
-        // Do any additional setup after loading the view.
+    override func viewWillAppear(_ animated: Bool) {
+        setBackgroundColor()
+        print(redValue, greenValue, blueValue)
+        super.viewWillAppear(animated)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        guard let settingsVC =  segue.destination as? SettingsViewController else { return }
+        settingsVC.delegate = self
+        settingsVC.redValue = redValue
+        settingsVC.greenValue = greenValue
+        settingsVC.blueValue = blueValue
     }
-    */
+    
+    private func setBackgroundColor() {
+        view.backgroundColor = UIColor(
+            red: redValue,
+            green: greenValue,
+            blue: blueValue,
+            alpha: 1)
+    }
+}
 
+extension StartViewController: SettingsViewControllerDelegate {
+    func setRGBValues(red: CGFloat, green: CGFloat, blue: CGFloat) {
+        redValue = red
+        greenValue = green
+        blueValue = blue
+    }
 }
